@@ -1,0 +1,115 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A musical instrument for sale",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "salePrice": { "type": "number" },
+        "categoryId": { "type": "string" },
+        "brandId": { "type": "string" },
+        "stock": { "type": "number" },
+        "sku": { "type": "string" },
+        "images": { "type": "array" },
+        "isFeatured": { "type": "boolean" },
+        "isBestSeller": { "type": "boolean" },
+        "tags": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "categoryId", "brandId", "stock"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "image": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Brand": {
+      "title": "Brand",
+      "description": "Musical instrument brand",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "logo": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "paid", "packed", "shipped", "delivered", "cancelled"] },
+        "shippingAddress": { "type": "object" },
+        "paymentMethod": { "type": "string" },
+        "paymentId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["items", "total", "status"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Customer contact form submission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["new", "resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "message"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Discount coupon code",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "type": { "type": "string", "enum": ["fixed", "percentage"] },
+        "value": { "type": "number" },
+        "minCartValue": { "type": "number" },
+        "expiryDate": { "type": "string", "format": "date-time" },
+        "isActive": { "type": "boolean" }
+      }
+    },
+    "Banner": {
+      "title": "Banner",
+      "description": "Homepage promotional banner",
+      "type": "object",
+      "properties": {
+        "imageUrl": { "type": "string" },
+        "link": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "order": { "type": "number" }
+      }
+    }
+  },
+  "firestore": {
+    "products": { "schema": "Product", "description": "Musical instruments" },
+    "categories": { "schema": "Category", "description": "Instrument categories" },
+    "brands": { "schema": "Brand", "description": "Musical brands" },
+    "orders": { "schema": "Order", "description": "Customer orders" },
+    "inquiries": { "schema": "Inquiry", "description": "Customer messages" },
+    "coupons": { "schema": "Coupon", "description": "Discount codes" },
+    "banners": { "schema": "Banner", "description": "Hero banners" },
+    "admins": { "schema": "object", "description": "List of admin UIDs" }
+  }
+}
